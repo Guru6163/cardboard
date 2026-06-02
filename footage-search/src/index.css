@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --editor-bg: #08080b;
+    --editor-panel: #13131a;
+    --editor-border: #252532;
+    --accent: #a78bfa;
+    --accent-glow: rgba(167, 139, 250, 0.2);
+  }
+
+  html,
+  body,
+  #root {
+    @apply h-full overflow-hidden;
+  }
+
+  body {
+    @apply bg-editor-bg text-editor-text font-sans antialiased;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(167, 139, 250, 0.08), transparent),
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 100% 100%, 48px 48px, 48px 48px;
+  }
+}
+
+@layer components {
+  .panel-chrome {
+    @apply bg-editor-panel/90 border-editor-border backdrop-blur-xl;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-1.5 text-sm text-editor-dim
+      transition-colors hover:bg-white/5 hover:text-editor-text;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium
+      bg-accent text-editor-bg transition-all hover:bg-accent-bright shadow-glow;
+  }
+
+  .timecode {
+    @apply font-mono text-[11px] tracking-wide tabular-nums text-editor-muted;
+  }
+
+  .filmstrip-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: var(--editor-border) transparent;
+  }
+
+  .filmstrip-scroll::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .filmstrip-scroll::-webkit-scrollbar-thumb {
+    background: var(--editor-border);
+    border-radius: 3px;
+  }
+
+  .search-command {
+    @apply w-full rounded-2xl border border-editor-border bg-editor-elevated/80 py-4 pl-14 pr-36
+      text-lg text-editor-text placeholder:text-editor-muted/70
+      shadow-panel transition-all duration-200;
+  }
+
+  .search-command:focus {
+    @apply border-accent/50 outline-none ring-2 ring-accent/20;
+    box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.2), 0 0 48px -12px var(--accent-glow);
+  }
+
+  .search-progress.debouncing::after {
+    content: '';
+    display: block;
+    height: 2px;
+    width: 30%;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    animation: search-progress-slide 300ms linear forwards;
+  }
+
+  .search-progress.complete::after {
+    content: '';
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: var(--accent);
+    animation: search-progress-finish 400ms ease-out forwards;
+  }
+
+  .stage-pill-active {
+    @apply bg-accent/15 text-accent-bright border-accent/30;
+  }
+
+  .stage-pill-done {
+    @apply bg-emerald-500/10 text-emerald-400/90 border-emerald-500/20;
+  }
+
+  .result-card-glow {
+    @apply transition-all duration-200;
+  }
+
+  .result-card-glow:hover {
+    box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.25), 0 8px 32px -8px rgba(0, 0, 0, 0.5);
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes search-progress-slide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(350%);
+  }
+}
+
+@keyframes search-progress-finish {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
