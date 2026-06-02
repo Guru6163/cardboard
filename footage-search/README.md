@@ -23,6 +23,21 @@ Enter your OpenAI API key in the UI. Drop `.mp4`, `.mov`, or `.webm` files to in
 - idb-keyval for IndexedDB persistence
 - Web Worker indexer (no main-thread blocking)
 
+## Deploy on Vercel
+
+Pick **one** setup (not both):
+
+**Option A — Root Directory `footage-search` (recommended)**  
+1. Project → Settings → General → **Root Directory**: `footage-search`  
+2. Install / Build: default (`npm install`, `npm run build`)  
+3. Clear any custom **Install Command** override (remove `cd footage-search …`)  
+4. Uses `footage-search/vercel.json` for headers and SPA routing  
+
+**Option B — Repo root**  
+1. Leave **Root Directory** empty  
+2. Uses root `vercel.json` (`npm install --prefix footage-search`)  
+3. Do not set Root Directory to `footage-search` with this option  
+
 ## Notes
 
 - First index of a clip calls OpenAI APIs and may take several minutes depending on length.

@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "cd footage-search && npm install",
-  "buildCommand": "cd footage-search && npm run build",
+  "installCommand": "npm install --prefix footage-search",
+  "buildCommand": "npm run build --prefix footage-search",
   "outputDirectory": "footage-search/dist",
   "rewrites": [{ "source": "/((?!assets/).*)", "destination": "/index.html" }],
   "headers": [
